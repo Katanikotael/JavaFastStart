@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 
 public class FileHandler {
@@ -39,7 +37,28 @@ public class FileHandler {
         return m;
     }
 
-    public void appendFile() {}
+    public void appendFile(String mem) {
+        try (var writer = new BufferedWriter(new FileWriter("src/members.csv", true))) {
+            writer.write(mem);
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-    public void overWriteFile() {}
+    public void overWriteFile(LinkedList<Member> m) {
+        String s;
+        try (var writer = new BufferedWriter(new FileWriter("src/members.temp", false))) {
+            for (Member mem: m) {
+                s = mem.toString();
+                writer.write(s + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        var f = new File("src/members.csv");
+        var nf = new File ("src/members.temp");
+        f.delete();
+        nf.renameTo(f);
+    }
 }

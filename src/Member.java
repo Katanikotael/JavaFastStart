@@ -13,12 +13,10 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-                "memberType=" + memberType +
-                ", memberID=" + memberID +
-                ", memberName='" + memberName + '\'' +
-                ", memberFees=" + memberFees +
-                '}';
+        return memberType + ", " +
+                memberID + ", " +
+                memberName + ", " +
+                memberFees;
     }
 
     public char getMemberType() {
