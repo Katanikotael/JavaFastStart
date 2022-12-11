@@ -17,20 +17,21 @@ public class FileHandler {
                     var type = splitLine[0].charAt(0);
                     var id = Integer.parseInt(splitLine[1]);
                     var name = splitLine[2];
-                    var fee = Double.parseDouble(splitLine[0]);
+                    var fee = Double.parseDouble(splitLine[3]);
                     var club = Integer.parseInt(splitLine[4]);
                     mem = new SingleClubMember(type, id, name, fee, club);
                 } else {
                     var type = splitLine[0].charAt(0);
                     var id = Integer.parseInt(splitLine[1]);
                     var name = splitLine[2];
-                    var fee = Double.parseDouble(splitLine[0]);
+                    var fee = Double.parseDouble(splitLine[3]);
                     var points = Integer.parseInt(splitLine[4]);
                     mem = new MultiClubMember(type, id, name, fee, points);
                 }
                 m.add(mem);
                 lineRead = reader.readLine();
             }
+            System.out.println();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

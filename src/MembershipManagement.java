@@ -14,6 +14,8 @@ public class MembershipManagement {
                 reader.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("ERROR: INVALID INPUT. Please try again: ");
+                choice = reader.nextInt();
+                reader.nextLine();
             }
         }
         return choice;
@@ -27,6 +29,7 @@ public class MembershipManagement {
     }
 
     public int getChoice() {
+        System.out.println();
         System.out.println("WELCOME TO OZONE FITNESS CENTER");
         System.out.println("================================");
         System.out.println("1) Add Member");
@@ -75,12 +78,10 @@ public class MembershipManagement {
             System.out.println("\nSTATUS: Single Club Member added\n");
         } else {
             cal = (n) -> {
-                switch (n) {
-                    case 4:
-                        return 1200;
-                    default:
-                        return -1;
+                if (n == 4) {
+                    return 1200;
                 }
+                return -1;
             };
             fees = cal.calculateFees(club);
             mbr = new MultiClubMember('M', memberID, name, fees, 100);
@@ -89,5 +90,50 @@ public class MembershipManagement {
             System.out.println("\nSTATUS: Multi Club Member added\n");
         }
         return mem;
+    }
+
+    public void removeMember(LinkedList<Member> m) {
+        System.out.println();
+        System.out.println("Enter member's ID to remove him: ");
+        int memberID = getIntInput();
+        for (int i = 0; i < m.size(); i++) {
+            if (memberID == m.get(i).getMemberID()) {
+                System.out.printf("\nSTATUS: Member №%d %s deleted\n",m.get(i).getMemberID(), m.get(i).getMemberName());
+                m.remove(i);
+                return;
+            }
+        }
+        System.out.println("\nSTATUS: Member №" + memberID + " not found.");
+    }
+
+    public void printMemberInfo(LinkedList<Member> m) {
+        System.out.println();
+        System.out.println("Enter member's ID: ");
+        int memberID = getIntInput();
+        for (Member member : m) {
+            if (memberID == member.getMemberID()) {
+                String[] currentMember = member.toString().split(", ");
+                String mType = currentMember[0];
+                String ID = currentMember[1];
+                String name = currentMember[2];
+                String fees = currentMember[3];
+                String clubOrPoints = currentMember[4];
+                if (mType.equals("S")) {
+                    System.out.println("\nMember Type = " + mType);
+                    System.out.println("Member ID = " + ID);
+                    System.out.println("Member Name = " + name);
+                    System.out.println("Membership Fees = " + fees);
+                    System.out.println("Club ID = " + clubOrPoints);
+                } else {
+                    System.out.println("\nMember Type = " + mType);
+                    System.out.println("Member ID = " + ID);
+                    System.out.println("Member Name = " + name);
+                    System.out.println("Membership Fees = " + fees);
+                    System.out.println("Membership Points = " + clubOrPoints);
+                }
+                return;
+            }
+        }
+        System.out.println("\nSTATUS: Member №" + memberID + " not found.");
     }
 }
